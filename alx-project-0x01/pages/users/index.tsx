@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import { UserProps } from "@/interfaces";
 import UserCard from "@/components/common/UserCard";
 
@@ -25,6 +26,7 @@ const Users: React.FC<{ users: UserProps[] }> = ({ users }) => {
           }
         </div>
       </main>
+      <Footer />
     </div>
   )
 }

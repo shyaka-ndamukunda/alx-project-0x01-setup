@@ -1,5 +1,6 @@
 import PostCard from "@/components/common/PostCard";
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import { PostProps } from "@/interfaces";
 
 const Posts: React.FC<{ posts: PostProps[] }> = ({ posts }) => {
@@ -19,6 +20,7 @@ const Posts: React.FC<{ posts: PostProps[] }> = ({ posts }) => {
           }
         </div>
       </main>
+      <Footer />
     </div>
   )
 }

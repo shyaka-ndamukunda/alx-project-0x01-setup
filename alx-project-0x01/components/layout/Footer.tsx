@@ -1,9 +1,11 @@
 const Footer: React.FC = () => {
   return (
-    <div>
-      <p>Footer component</p>
-    </div>
-  )
+    <footer className="bg-gray-800 text-white shadow-inner p-4 mt-auto">
+      <div className="container mx-auto text-center">
+        <p>Built with ❤️ by Shyaka Ndamukunda</p>
+      </div>
+    </footer>
+  );
 }
 
-export default Footer; 
+export default Footer;
