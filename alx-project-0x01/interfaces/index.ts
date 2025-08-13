@@ -30,3 +30,16 @@ export interface UserProps {
     bs: string;
   };
 }
+
+export interface PostData {
+  title: string;
+  body: string;
+  id?: number;
+}
+
+export interface PostModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (post: PostData) => void;
+  postToEdit: PostData | null;
+}
