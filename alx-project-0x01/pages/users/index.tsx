@@ -16,14 +16,14 @@ const Users: React.FC<{ users: UserProps[] }> = ({ users: initialUsers }) => {
     setUserToEdit(null);
   };
 
-  const handleUserSubmit = (newUser: UserData) => {
+  const handleUserSubmit = (newUser: UserProps) => {
     if (newUser.id) {
       // Logic for editing an existing user
       setUsers(users.map(u => u.id === newUser.id ? { ...u, ...newUser } : u));
     } else {
       // Logic for adding a new user
       const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
-      const userWithId = {
+      const userWithId: UserProps = {
         ...newUser,
         id: newId,
         address: {

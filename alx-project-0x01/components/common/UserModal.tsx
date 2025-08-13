@@ -1,4 +1,4 @@
-import { UserData, UserModalProps } from "@/interfaces";
+import { UserData, UserModalProps, UserProps } from "@/interfaces";
 import { useState, useEffect, FormEvent } from "react";
 
 const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, onSubmit, userToEdit }) => {
@@ -26,7 +26,8 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, onSubmit, userTo
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    onSubmit(user);
+    // Cast 'user' to UserProps to match the prop's expected signature
+    onSubmit(user as UserProps);
     setUser({
       name: "",
       username: "",
