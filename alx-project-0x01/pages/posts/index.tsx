@@ -6,17 +6,32 @@ import PostModal from "@/components/common/PostModal";
 import { useState } from "react";
 
 const Posts: React.FC<{ posts: PostProps[] }> = ({ posts: initialPosts }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
   const [posts, setPosts] = useState<PostProps[]>(initialPosts);
+  const [post, setPost] = useState<PostData | null>(null);
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleOpenModal = () => setModalOpen(true);
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setPost(null);
+  };
 
   const handlePostSubmit = (newPost: PostData) => {
-    const newId = posts.length > 0 ? Math.max(...posts.map(p => p.id)) + 1 : 1;
-    const postWithId = { ...newPost, id: newId, userId: 1 };
-    setPosts([postWithId, ...posts]);
+    if (newPost.id) {
+      // Logic for editing an existing post
+      setPosts(posts.map(p => p.id === newPost.id ? { ...p, ...newPost } : p));
+    } else {
+      // Logic for adding a new post
+      const newId = posts.length > 0 ? Math.max(...posts.map(p => p.id)) + 1 : 1;
+      const postWithId = { ...newPost, id: newId, userId: 1 };
+      setPosts([postWithId, ...posts]);
+    }
     handleCloseModal();
+  };
+
+  const handleEdit = (postToEdit: PostData) => {
+    setPost(postToEdit);
+    handleOpenModal();
   };
 
   return (
@@ -34,8 +49,14 @@ const Posts: React.FC<{ posts: PostProps[] }> = ({ posts: initialPosts }) => {
         </div>
         <div className="grid grid-cols-3 gap-2 ">
           {
-            posts?.map(({ title, body, userId, id }: PostProps, key: number) => (
-              <PostCard title={title} body={body} userId={userId} id={id} key={key} />
+            posts?.map((p: PostProps, key: number) => (
+              <PostCard
+                key={key}
+                title={p.title}
+                body={p.body}
+                userId={p.userId}
+                id={p.id}
+              />
             ))
           }
         </div>
@@ -44,7 +65,7 @@ const Posts: React.FC<{ posts: PostProps[] }> = ({ posts: initialPosts }) => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onSubmit={handlePostSubmit}
-        postToEdit={null}
+        postToEdit={post}
       />
       <Footer />
     </div>
