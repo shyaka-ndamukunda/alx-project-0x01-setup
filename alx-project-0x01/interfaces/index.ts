@@ -43,3 +43,19 @@ export interface PostModalProps {
   onSubmit: (post: PostData) => void;
   postToEdit: PostData | null;
 }
+
+export interface UserData {
+  id?: number;
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+  website: string;
+}
+
+export interface UserModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (user: UserData) => void;
+  userToEdit: UserData | null;
+}
